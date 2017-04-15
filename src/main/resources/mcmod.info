@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "denseores",
+  "name": "Dense Ores",
+  "description": "Generates denser versions of ores.",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://github.com/rwtema/DenseOres",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["rwtema"],
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
