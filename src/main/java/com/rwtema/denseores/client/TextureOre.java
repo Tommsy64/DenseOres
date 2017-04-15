@@ -1,11 +1,23 @@
 package com.rwtema.denseores.client;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.imageio.ImageIO;
+
 import com.google.common.base.Throwables;
 import com.rwtema.denseores.DenseOre;
 import com.rwtema.denseores.DenseOresMod;
 import com.rwtema.denseores.blockstates.Offset;
 import com.rwtema.denseores.utils.ColorHelper;
 import com.rwtema.denseores.utils.LogHelper;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.PngSizeInfo;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -17,16 +29,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
 // Custom texture class to handle the ore generation
 @SideOnly(Side.CLIENT)
 public class TextureOre extends TextureAtlasSprite {
@@ -36,38 +38,38 @@ public class TextureOre extends TextureAtlasSprite {
 	public String base;
 	public int type;
 	private int renderType = 0;
+	private int metadata = 0;
 
 	public TextureOre(DenseOre denseOre) {
-		this(denseOre.texture, denseOre.underlyingBlockTexture);
+		this(denseOre.texture, denseOre.underlyingBlockTexture, denseOre.metadata);
 		renderType = denseOre.rendertype;
+		this.metadata = denseOre.metadata;
 	}
 
-	public TextureOre(String par1Str, String base) {
-		super(getDerivedName(par1Str));
-		this.name = par1Str;
+	public TextureOre(String texture, String base, int metadata) {
+		super(getDerivedName(texture, metadata));
+		this.name = texture;
 		this.base = base;
 	}
 
-	public static String getDerivedName(String s2) {
+	private static String getDerivedName(String s2, int metadata) {
 		String s1 = "minecraft";
 
-		int ind = s2.indexOf(58);
-
+		int ind = s2.indexOf(':');
 		if (ind >= 0) {
 			if (ind > 1) {
 				s1 = s2.substring(0, ind);
 			}
-
 			s2 = s2.substring(ind + 1, s2.length());
 		}
 
 		s1 = s1.toLowerCase();
 
-		return DenseOresMod.MODID + ":" + s1 + "/" + s2 + "_" + "dense";
+		return DenseOresMod.MODID + ":" + s1 + "/" + s2 + "_" + "dense" + (metadata != 0 ? metadata : "");
 	}
 
 	// converts texture name to resource location
-	public static ResourceLocation getBlockResource(String s2) {
+	private static ResourceLocation getBlockResource(String s2) {
 		String s1 = "minecraft";
 
 		int ind = s2.indexOf(58);
@@ -307,7 +309,7 @@ public class TextureOre extends TextureAtlasSprite {
 			throw new RuntimeException(e);
 		}
 
-		LogHelper.trace("Dense Ores: Succesfully generated dense ore texture for '" + name + "' with background '" + base + "'. Place " + name + "_dense.png in the assets folder to override.");
+		LogHelper.info("Dense Ores: Succesfully generated dense ore texture for '" + name + "' with background '" + base + "'. Place " + getDerivedName(name, metadata) + " in the assets folder to override.");
 		return false;
 	}
 }
