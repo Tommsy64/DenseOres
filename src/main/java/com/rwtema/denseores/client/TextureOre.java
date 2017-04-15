@@ -39,20 +39,22 @@ public class TextureOre extends TextureAtlasSprite {
 	public int type;
 	private int renderType = 0;
 	private int metadata = 0;
+	private final String resourcePath;
 
 	public TextureOre(DenseOre denseOre) {
-		this(denseOre.texture, denseOre.underlyingBlockTexture, denseOre.metadata);
+		this(denseOre.texture, denseOre.underlyingBlockTexture, denseOre.metadata, denseOre.baseBlock.getResourcePath());
 		renderType = denseOre.rendertype;
-		this.metadata = denseOre.metadata;
 	}
 
-	public TextureOre(String texture, String base, int metadata) {
-		super(getDerivedName(texture, metadata));
+	public TextureOre(String texture, String base, int metadata, String resourcePath) {
+		super(getDerivedName(texture, metadata, resourcePath));
 		this.name = texture;
 		this.base = base;
+		this.metadata = metadata;
+		this.resourcePath = resourcePath;
 	}
 
-	private static String getDerivedName(String s2, int metadata) {
+	private static String getDerivedName(String s2, int metadata, String resourcePath) {
 		String s1 = "minecraft";
 
 		int ind = s2.indexOf(':');
@@ -64,8 +66,7 @@ public class TextureOre extends TextureAtlasSprite {
 		}
 
 		s1 = s1.toLowerCase();
-
-		return DenseOresMod.MODID + ":" + s1 + "/" + s2 + "_" + "dense" + (metadata != 0 ? metadata : "");
+		return DenseOresMod.MODID + ":" + s1 + "/" + s2 + "-" + resourcePath + "-_" + "dense" + (metadata != 0 ? metadata : "");
 	}
 
 	// converts texture name to resource location
@@ -309,7 +310,7 @@ public class TextureOre extends TextureAtlasSprite {
 			throw new RuntimeException(e);
 		}
 
-		LogHelper.info("Dense Ores: Succesfully generated dense ore texture for '" + name + "' with background '" + base + "'. Place " + getDerivedName(name, metadata) + " in the assets folder to override.");
+		LogHelper.info("Dense Ores: Succesfully generated dense ore texture for '" + name + "' with background '" + base + "'. Place " + getDerivedName(name, metadata, resourcePath) + " in the assets folder to override.");
 		return false;
 	}
 }
