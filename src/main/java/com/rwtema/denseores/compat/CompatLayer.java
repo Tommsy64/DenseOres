@@ -1,15 +1,16 @@
 package com.rwtema.denseores.compat;
 
+import java.util.Locale;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import mcjty.lib.tools.ChatTools;
 import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.ITextComponent;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Locale;
 
 public class CompatLayer extends Compat {
 

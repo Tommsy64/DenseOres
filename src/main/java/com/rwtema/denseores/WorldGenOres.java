@@ -1,5 +1,8 @@
 package com.rwtema.denseores;
 
+import java.util.Map;
+import java.util.Random;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -12,9 +15,6 @@ import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.util.Map;
-import java.util.Random;
 
 public class WorldGenOres implements IWorldGenerator {
 

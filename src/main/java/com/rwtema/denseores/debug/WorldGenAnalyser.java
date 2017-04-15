@@ -1,8 +1,13 @@
 package com.rwtema.denseores.debug;
 
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
 import com.rwtema.denseores.DenseOre;
 import com.rwtema.denseores.DenseOresRegistry;
 import com.rwtema.denseores.compat.Compat;
+
 import gnu.trove.map.hash.TObjectLongHashMap;
 import gnu.trove.procedure.TObjectLongProcedure;
 import mcjty.lib.compat.CompatCommand;
@@ -23,9 +28,6 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import javax.annotation.Nonnull;
-import java.util.Random;
 
 @Optional.Interface(iface = "mcjty.lib.compat.CompatCommand", modid = "compatlayer")
 public class WorldGenAnalyser extends CommandBase implements IWorldGenerator, CompatCommand {

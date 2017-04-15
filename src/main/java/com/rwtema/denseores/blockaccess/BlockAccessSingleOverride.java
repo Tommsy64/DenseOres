@@ -1,12 +1,12 @@
 package com.rwtema.denseores.blockaccess;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-
-import javax.annotation.Nonnull;
 
 public class BlockAccessSingleOverride extends BlockAccessDelegate {
 	public IBlockState overrideState = Blocks.AIR.getDefaultState();

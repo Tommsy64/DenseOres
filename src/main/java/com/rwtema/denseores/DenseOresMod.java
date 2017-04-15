@@ -1,10 +1,16 @@
 package com.rwtema.denseores;
 
+import java.io.File;
+import java.util.function.Consumer;
+
+import javax.annotation.Nullable;
+
 import com.google.common.collect.ImmutableSet;
 import com.rwtema.denseores.client.ModelGen;
 import com.rwtema.denseores.compat.Compat;
 import com.rwtema.denseores.debug.WorldGenAnalyser;
 import com.rwtema.denseores.utils.LogHelper;
+
 import net.minecraft.block.Block;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.item.ItemBlock;
@@ -14,14 +20,17 @@ import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.EnhancedRuntimeException;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ModAPIManager;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import javax.annotation.Nullable;
-import java.io.File;
-import java.util.Objects;
-import java.util.function.Consumer;
 
 @Mod(modid = DenseOresMod.MODID, version = DenseOresMod.VERSION, dependencies = "after:*", acceptedMinecraftVersions = "[1.9,1.11.2]")
 public class DenseOresMod {

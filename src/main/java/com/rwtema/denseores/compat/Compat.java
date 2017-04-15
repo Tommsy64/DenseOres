@@ -1,15 +1,15 @@
 package com.rwtema.denseores.compat;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.google.common.base.Throwables;
+
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.common.ModAPIManager;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public abstract class Compat {
 	public final static Compat INSTANCE;

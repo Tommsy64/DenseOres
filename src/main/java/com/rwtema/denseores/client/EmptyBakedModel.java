@@ -1,20 +1,22 @@
 package com.rwtema.denseores.client;
 
-import com.google.common.collect.ImmutableList;
-import com.sun.javafx.collections.UnmodifiableObservableMap;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.*;
-import net.minecraft.util.EnumFacing;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.google.common.collect.ImmutableList;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemOverrideList;
+import net.minecraft.client.renderer.block.model.SimpleBakedModel;
+import net.minecraft.util.EnumFacing;
 
 public class EmptyBakedModel extends SimpleBakedModel {
 	protected static final List<BakedQuad> EMPTY_QUADS = ImmutableList.of();
 	protected static final boolean EMPTY_AMBIENTOCCLUSION = false;
 	protected static final boolean EMPTY_GUI3D = false;
-	@SuppressWarnings("deprecation")
 	protected static final ItemCameraTransforms EMPTY_CAMERATRANSFORMS = ItemCameraTransforms.DEFAULT;
 	protected static final Map<EnumFacing, List<BakedQuad>> EMPTY_FACE_QUADS;
 
@@ -25,7 +27,6 @@ public class EmptyBakedModel extends SimpleBakedModel {
 		}
 
 		EMPTY_FACE_QUADS = map;
-
 	}
 
 

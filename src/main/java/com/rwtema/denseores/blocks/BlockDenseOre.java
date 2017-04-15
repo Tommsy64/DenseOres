@@ -1,9 +1,16 @@
 package com.rwtema.denseores.blocks;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
 import com.google.common.base.Throwables;
 import com.rwtema.denseores.DenseOre;
 import com.rwtema.denseores.blockaccess.BlockAccessSingleOverride;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -19,11 +26,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /*  I'm using the MAX_METADATA metadata values to store each ore block.
  *  (We don't really need to worry about block ids in 1.7

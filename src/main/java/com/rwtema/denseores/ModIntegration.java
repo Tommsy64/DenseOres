@@ -1,6 +1,14 @@
 package com.rwtema.denseores;
 
+import java.util.Arrays;
+import java.util.Locale;
+
+import javax.annotation.Nonnull;
+
+import org.apache.commons.lang3.Validate;
+
 import com.rwtema.denseores.compat.Compat;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -9,11 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import org.apache.commons.lang3.Validate;
-
-import javax.annotation.Nonnull;
-import java.util.Arrays;
-import java.util.Locale;
 
 public class ModIntegration {
 	public static final String[] canonOres = {"oreIron", "oreGold", "oreCopper", "oreTin", "oreSilver", "oreLead", "oreNickel", "orePlatinum"};

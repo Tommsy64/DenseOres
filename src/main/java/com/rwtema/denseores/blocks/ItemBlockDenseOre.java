@@ -1,6 +1,9 @@
 package com.rwtema.denseores.blocks;
 
+import javax.annotation.Nonnull;
+
 import com.rwtema.denseores.compat.Compat;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -9,8 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
 
 public class ItemBlockDenseOre extends ItemBlock {
 	BlockDenseOre oreBlock;

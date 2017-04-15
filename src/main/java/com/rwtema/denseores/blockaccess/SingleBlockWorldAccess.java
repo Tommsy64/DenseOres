@@ -1,5 +1,7 @@
 package com.rwtema.denseores.blockaccess;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -9,8 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
-
-import javax.annotation.Nonnull;
 
 public class SingleBlockWorldAccess implements IBlockAccess {
 	public static BlockPos CENTER_POS = new BlockPos(0, 128, 0);
