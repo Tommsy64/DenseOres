@@ -81,6 +81,9 @@ public class DenseOresRegistry {
 
 					if (oreName.length() > 3 && oreName.startsWith("ore") && Character.isUpperCase(oreName.charAt(3))) {
 						ore.baseOreDictionaryEntry = oreName;
+						String newOreName = "dense" + oreName;
+						ore.oreDictionary = newOreName;
+						OreDictionary.registerOre(newOreName, new ItemStack(ore.block));
 					}
 				}
 			}
