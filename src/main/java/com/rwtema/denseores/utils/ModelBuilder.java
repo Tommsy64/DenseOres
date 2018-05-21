@@ -24,11 +24,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 
 
-@SuppressWarnings("unchecked")
 public class ModelBuilder {
 	// create a blank baked model with the default values
 	public static SimpleBakedModel newBlankModel(TextureAtlasSprite texture) {
-		return new SimpleBakedModel(new LinkedList(), newBlankFacingLists(), true, true, texture, ItemCameraTransforms.DEFAULT, new ItemOverrideList(ImmutableList.of()));
+		return new SimpleBakedModel(new LinkedList<BakedQuad>(), newBlankFacingLists(), true, true, texture, ItemCameraTransforms.DEFAULT, new ItemOverrideList(ImmutableList.of()));
 	}
 
 	// create a copy of a quad
@@ -96,8 +95,8 @@ public class ModelBuilder {
 			}
 
 			// set the new texture uvs
-			quad.getVertexData()[j + 4] = Float.floatToRawIntBits(tex.getInterpolatedU((double) u));
-			quad.getVertexData()[j + 4 + 1] = Float.floatToRawIntBits(tex.getInterpolatedV((double) v));
+			quad.getVertexData()[j + 4] = Float.floatToRawIntBits(tex.getInterpolatedU(u));
+			quad.getVertexData()[j + 4 + 1] = Float.floatToRawIntBits(tex.getInterpolatedV(v));
 		}
 
 		return quad;
@@ -105,7 +104,7 @@ public class ModelBuilder {
 
 	// Creates a copy of the baked model with a given texture overlayed on the sides
 	public static IBakedModel changeIcon(IBlockState state, IBakedModel model, TextureAtlasSprite texture) {
-		LinkedList generalQuadsList = new LinkedList();
+		LinkedList<BakedQuad> generalQuadsList = new LinkedList<BakedQuad>();
 		Map<EnumFacing, List<BakedQuad>> blankFacingLists = newBlankFacingLists();
 		SimpleBakedModel bakedModel = new SimpleBakedModel(generalQuadsList, blankFacingLists, model.isGui3d(), model.isAmbientOcclusion(), texture, model.getItemCameraTransforms(), new ItemOverrideList(ImmutableList.of()));
 

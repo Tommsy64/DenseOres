@@ -115,6 +115,7 @@ public class BlockDenseOre extends Block {
 		isValid = baseBlock != null && baseBlock != Blocks.AIR;
 	}
 
+	@Override
 	@Nonnull
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this);
@@ -203,7 +204,7 @@ public class BlockDenseOre extends Block {
 
 			BlockAccessSingleOverride delegate = new BlockAccessSingleOverride(world, m, pos);
 
-			Random rand = world instanceof World ? ((World) world).rand : RANDOM;
+			// Random rand = world instanceof World ? ((World) world).rand : RANDOM;
 
 			// get base drops 3 times
 			for (int j = 0; j < 3; j++) {
@@ -258,7 +259,7 @@ public class BlockDenseOre extends Block {
 	public int getExpDrop(IBlockState state, IBlockAccess iBlockAccess, BlockPos pos, int fortune) {
 		if (!(iBlockAccess instanceof World) || !isValid()) return 0;
 
-		World world = ((World) iBlockAccess);
+		// World world = ((World) iBlockAccess);
 
 		IBlockState baseState = getBaseBlockState();
 		BlockAccessSingleOverride delegate = new BlockAccessSingleOverride(iBlockAccess, baseState, pos);

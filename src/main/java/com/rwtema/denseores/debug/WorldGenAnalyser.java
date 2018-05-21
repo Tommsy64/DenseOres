@@ -71,13 +71,13 @@ public class WorldGenAnalyser extends CommandBase implements IWorldGenerator, Co
 
 	@Nonnull
 	@Override
-	public String getName() {
+	public String getCommandName() {
 		return "denseores_worldgenreport";
 	}
 
 	@Nonnull
 	@Override
-	public String getUsage(@Nonnull ICommandSender sender) {
+	public String getCommandUsage(@Nonnull ICommandSender sender) {
 		return "denseores_worldgenreport";
 	}
 
@@ -96,7 +96,7 @@ public class WorldGenAnalyser extends CommandBase implements IWorldGenerator, Co
 
 			if ("gen".equals(arg)) {
 				WorldServer world = (WorldServer) sender.getEntityWorld();
-				BlockPos pos = sender.getPosition();
+				// BlockPos pos = sender.getPosition();
 				for (int i = 0; i < 100; i++) {
 					int x = world.rand.nextInt(2000) - 1000;
 					int z = world.rand.nextInt(2000) - 1000;

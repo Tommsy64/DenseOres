@@ -12,7 +12,7 @@ public class ColorHelper {
 	}
 
 	public static int clamp(float c) {
-		return (int) MathHelper.clamp(c, 0, 255);
+		return (int) MathHelper.clamp_float(c, 0, 255);
 	}
 
 	public static int getAlpha(int col) {

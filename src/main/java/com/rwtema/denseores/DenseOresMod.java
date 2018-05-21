@@ -23,7 +23,6 @@ import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.EnhancedRuntimeException;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.ModAPIManager;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
@@ -35,7 +34,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @Mod(modid = DenseOresMod.MODID, version = DenseOresMod.VERSION, dependencies = "after:*", acceptedMinecraftVersions = "[1.9,1.11.2]")
 public class DenseOresMod {
 	public static final String MODID = "denseores";
-	public static final String VERSION = "1.0";
+	public static final String VERSION = "1.0.3";
 
 	@SidedProxy(serverSide = "com.rwtema.denseores.Proxy", clientSide = "com.rwtema.denseores.ProxyClient")
 	public static Proxy proxy;
@@ -46,7 +45,7 @@ public class DenseOresMod {
 	public void preInit(FMLPreInitializationEvent event) {
 		String version = Loader.instance().getMinecraftModContainer().getVersion();
 		if (ImmutableSet.of("1.9", "1.9.1", "1.9.2", "1.9.3", "1.9.4", "1.10", "1.10.1", "1.10.2").contains(version)) {
-			if (!ModAPIManager.INSTANCE.hasAPI("compatlayer")) {
+			if (!Loader.isModLoaded("compatlayer")) {
 				throw proxy.wrap(new EnhancedRuntimeException(String.format("Dense Ores requires CompatLayer to run in Minecraft %s", version)) {
 					@Override
 					protected void printStackTrace(WrappedPrintStream stream) {
@@ -55,7 +54,6 @@ public class DenseOresMod {
 				});
 			}
 		}
-
 
 		config = event.getSuggestedConfigurationFile();
 	}
@@ -76,23 +74,22 @@ public class DenseOresMod {
 					int metadata;
 					String underlyingBlockTexture = "blocks/stone";
 					switch (key.substring("addDenseOre".length())) {
-						case "Stone":
-							underlyingBlockTexture = "blocks/stone";
-							break;
-						case "Netherrack":
-							underlyingBlockTexture = "blocks/netherrack";
-							break;
-						case "EndStone":
-							underlyingBlockTexture = "blocks/end_stone";
-							break;
-						case "Obsidian":
-							underlyingBlockTexture = "blocks/obsidian";
-							break;
+					case "Stone":
+						underlyingBlockTexture = "blocks/stone";
+						break;
+					case "Netherrack":
+						underlyingBlockTexture = "blocks/netherrack";
+						break;
+					case "EndStone":
+						underlyingBlockTexture = "blocks/end_stone";
+						break;
+					case "Obsidian":
+						underlyingBlockTexture = "blocks/obsidian";
+						break;
 					}
 
 					@Nullable
 					String texture = null;
-
 					String unofficialName = null;
 
 					if (messageType == ItemStack.class) {
@@ -116,15 +113,15 @@ public class DenseOresMod {
 						throw new IllegalArgumentException("Unable to process IMC type: " + messageType);
 					}
 
-					if(unofficialName == null || "".equals(unofficialName)){
+					if (unofficialName == null || "".equals(unofficialName)) {
 						unofficialName = null;
 					}
-					DenseOresRegistry.registerOre(
-							unofficialName, location, metadata, underlyingBlockTexture, texture, 0, rendertype
-					);
+					DenseOresRegistry.registerOre(unofficialName, location, metadata, underlyingBlockTexture, texture,
+							0, rendertype);
 				}
 			} catch (Exception err) {
-				throw new ReportedException(new CrashReport("Unabled to load IMC message from " + message.getSender(), err));
+				throw new ReportedException(
+						new CrashReport("Unabled to load IMC message from " + message.getSender(), err));
 			}
 		}
 
@@ -139,11 +136,10 @@ public class DenseOresMod {
 		MinecraftForge.EVENT_BUS.register(worldGen);
 
 		if (LogHelper.isDeObf && Compat.INSTANCE.isV11()) {
-			//noinspection TrivialFunctionalExpressionUsage
+			// noinspection TrivialFunctionalExpressionUsage
 			((Runnable) WorldGenAnalyser::registerWorldGen).run();
 		}
 	}
-
 
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
@@ -155,7 +151,7 @@ public class DenseOresMod {
 	public void serverStarting(FMLServerStartingEvent event) {
 		if (LogHelper.isDeObf) {
 			// Roundabout way of preventing java from loading the class when it is not needed
-			//noinspection TrivialFunctionalExpressionUsage
+			// noinspection TrivialFunctionalExpressionUsage
 			((Consumer<FMLServerStartingEvent>) WorldGenAnalyser::register).accept(event);
 		}
 	}

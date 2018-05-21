@@ -22,11 +22,13 @@ public class ItemBlockDenseOre extends ItemBlock {
 		this.setHasSubtypes(true);
 	}
 
+	@Override
 	public int getMetadata(int par1) {
 		return par1;
 	}
 
 	// Adds the 'dense' qualifier to the base blocks name
+	@Override
 	@Nonnull
 	public String getItemStackDisplayName(@Nonnull ItemStack stack) {
 		if (!oreBlock.isValid())

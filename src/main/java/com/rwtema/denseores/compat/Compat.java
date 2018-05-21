@@ -9,14 +9,14 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.fml.common.ModAPIManager;
+import net.minecraftforge.fml.common.Loader;
 
 public abstract class Compat {
 	public final static Compat INSTANCE;
 
 	static {
 		Compat instance;
-		if (ModAPIManager.INSTANCE.hasAPI("compatlayer")) {
+		if (Loader.isModLoaded("compatlayer")) {
 			try {
 				instance = (Compat) Class.forName("com.rwtema.denseores.compat.CompatLayer").newInstance();
 			} catch (Throwable e) {
@@ -58,8 +58,7 @@ public abstract class Compat {
 	@Nonnull
 	public abstract ItemStack getEmptyStack();
 
-	public abstract void addChatMessage(@Nonnull ICommandSender sender, @Nonnull ITextComponent component) ;
-
+	public abstract void addChatMessage(@Nonnull ICommandSender sender, @Nonnull ITextComponent component);
 
 	public abstract String makeLowercase(@Nullable String string);
 }

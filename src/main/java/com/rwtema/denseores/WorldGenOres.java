@@ -38,7 +38,7 @@ public class WorldGenOres implements IWorldGenerator {
 			ExtendedBlockStorage extendedblockstorage = storageArray[y >> 4];
 
 			if (extendedblockstorage == null) {
-				extendedblockstorage = storageArray[y >> 4] = new ExtendedBlockStorage(y >> 4 << 4, !chunk.getWorld().provider.hasNoSky());
+				extendedblockstorage = storageArray[y >> 4] = new ExtendedBlockStorage(y >> 4 << 4, !chunk.getWorld().provider.getHasNoSky());
 			}
 
 			extendedblockstorage.set(x & 15, y & 15, z & 15, state);

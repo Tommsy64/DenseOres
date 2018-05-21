@@ -140,7 +140,7 @@ public class ModIntegration {
 
 	public static ItemStack multiplyStackSize(@Nonnull ItemStack out, float multiplier) {
 		out = out.copy();
-		Compat.INSTANCE.setStackSize(out, (int) Math.round(Compat.INSTANCE.getStackSize(out) * multiplier));
+		Compat.INSTANCE.setStackSize(out, Math.round(Compat.INSTANCE.getStackSize(out) * multiplier));
 		if (Compat.INSTANCE.getStackSize(out) > out.getMaxStackSize())
 			Compat.INSTANCE.setStackSize(out, out.getMaxStackSize());
 

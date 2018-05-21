@@ -24,7 +24,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.data.AnimationMetadataSection;
-import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -54,39 +53,39 @@ public class TextureOre extends TextureAtlasSprite {
 		this.resourcePath = resourcePath;
 	}
 
-	private static String getDerivedName(String s2, int metadata, String resourcePath) {
+	private static String getDerivedName(String textureName, int metadata, String resourcePath) {
 		String s1 = "minecraft";
 
-		int ind = s2.indexOf(':');
+		int ind = textureName.indexOf(':');
 		if (ind >= 0) {
 			if (ind > 1) {
-				s1 = s2.substring(0, ind);
+				s1 = textureName.substring(0, ind);
 			}
-			s2 = s2.substring(ind + 1, s2.length());
+			textureName = textureName.substring(ind + 1, textureName.length());
 		}
 
 		s1 = s1.toLowerCase();
-		return DenseOresMod.MODID + ":" + s1 + "/" + s2 + "-" + resourcePath + "-_" + "dense" + (metadata != 0 ? metadata : "");
+		return DenseOresMod.MODID + ":" + s1 + "/" + textureName + "-" + resourcePath + "-_" + "dense" + (metadata != 0 ? metadata : "");
 	}
 
 	// converts texture name to resource location
-	private static ResourceLocation getBlockResource(String s2) {
+	private static ResourceLocation getBlockResource(String textureName) {
 		String s1 = "minecraft";
 
-		int ind = s2.indexOf(58);
+		int ind = textureName.indexOf(58);
 
 		if (ind >= 0) {
 			if (ind > 1) {
-				s1 = s2.substring(0, ind);
+				s1 = textureName.substring(0, ind);
 			}
 
-			s2 = s2.substring(ind + 1, s2.length());
+			textureName = textureName.substring(ind + 1, textureName.length());
 		}
 
 		s1 = s1.toLowerCase();
-		s2 = "textures/" + s2 + ".png";
+		textureName = "textures/" + textureName + ".png";
 
-		return new ResourceLocation(s1, s2);
+		return new ResourceLocation(s1, textureName);
 	}
 
 	private static int[] createDenseTexture(int w, int[] ore_data, int[] stone_data, int renderType) {
@@ -130,7 +129,7 @@ public class TextureOre extends TextureAtlasSprite {
 			int[] dx;
 			int[] dy;
 
-			//allows for different convolution filters
+			// allows for different convolution filters
 			Offset offset = Offset.getOffset(renderType);
 			dx = offset.dx;
 			dy = offset.dy;
@@ -166,18 +165,18 @@ public class TextureOre extends TextureAtlasSprite {
 	// loads the textures
 	// note: the documentation
 
+	@Override
 	public boolean hasCustomLoader(IResourceManager manager, ResourceLocation location) {
 		return true;
 	}
-
 
 	@Override
 	public void generateMipmaps(int level) {
 		super.generateMipmaps(level);
 	}
 
+	@Override
 	public boolean load(IResourceManager manager, ResourceLocation location) {
-
 		// get mipmapping level
 		int mp = Minecraft.getMinecraft().gameSettings.mipmapLevels;
 
@@ -215,9 +214,9 @@ public class TextureOre extends TextureAtlasSprite {
 			w = ore_image[0].getWidth();
 
 			if (stone_image.getWidth() != w) {
-				List resourcePacks = manager.getAllResources(getBlockResource(base));
+				List<IResource> resourcePacks = manager.getAllResources(getBlockResource(base));
 				for (int i = resourcePacks.size() - 1; i >= 0; --i) {
-					IResource resource = (IResource) resourcePacks.get(i);
+					IResource resource = resourcePacks.get(i);
 					stone_image = ImageIO.read(resource.getInputStream());
 
 					if (stone_image.getWidth() == w)
@@ -286,11 +285,12 @@ public class TextureOre extends TextureAtlasSprite {
 					return true;
 				}
 
+				@SuppressWarnings("unchecked")
 				@Nullable
 				@Override
-				public <T extends IMetadataSection> T getMetadata(String sectionName) {
+				public AnimationMetadataSection getMetadata(String sectionName) {
 					if ("animation".equals(sectionName)) {
-						return (T) animation;
+						return animation;
 					}
 					return null;
 				}
